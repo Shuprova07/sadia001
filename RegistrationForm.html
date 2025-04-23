@@ -1,148 +1,129 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
   <title>Registration Form</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f3f3f3;
-      padding: 20px;
-    }
-    .form-container {
-      background-color: white;
-      padding: 25px;
-      border-radius: 10px;
-      width: 400px;
-      margin: auto;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    }
-    .form-group {
-      margin-bottom: 15px;
-    }
-    label {
-      display: block;
-      margin-bottom: 5px;
-    }
-    input[type="text"], input[type="email"], input[type="password"], input[type="date"], select {
-      width: 100%;
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    .form-group.inline label {
-      display: inline;
-      margin-right: 10px;
-    }
-    .form-group.inline input {
-      margin-right: 10px;
-    }
-    #color-box {
-      height: 40px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      margin-top: 5px;
-    }
-    button {
-      background-color: #007BFF;
-      color: white;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      width: 100%;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
+    body { font-family: Arial; background: #f3f3f3; padding: 20px; }
+    .form-container { background: white; padding: 20px; border-radius: 10px; width: 400px; margin: auto; box-shadow: 0 0 10px #aaa; }
+    .form-group { margin-bottom: 15px; }
+    .form-group label, .form-group input, .form-group select { display: block; width: 100%; }
+    .radio-group, .terms { display: flex; align-items: center; gap: 10px; }
+    .error { color: red; font-size: 13px; }
+    #successMessage { color: green; text-align: center; display: none; }
+    button { width: 100%; padding: 10px; background: #007BFF; color: white; border: none; border-radius: 5px; }
   </style>
 </head>
 <body>
 
 <div class="form-container">
-  <h2>Registration Form</h2>
-  <form>
-    
+  <h2>Register</h2>
+  <form onsubmit="return validateForm()">
+
     <div class="form-group">
-      <label for="fullname">Full Name:</label>
-      <input type="text" id="fullname" name="fullname" required>
+      <label>Full Name:</label>
+      <input type="text" id="fullname">
+      <span class="error" id="nameError"></span>
     </div>
 
     <div class="form-group">
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username" required>
-    </div>
-
-    <div class="form-group inline">
       <label>Gender:</label>
-      <label><input type="radio" name="gender" value="Male"> Male</label>
-      <label><input type="radio" name="gender" value="Female"> Female</label>
-      <label><input type="radio" name="gender" value="Other"> Other</label>
+      <div class="radio-group">
+        <label><input type="radio" name="gender" value="Male" checked> Male</label>
+        <label><input type="radio" name="gender" value="Female"> Female</label>
+        <label><input type="radio" name="gender" value="Other"> Other</label>
+      </div>
+      <span class="error" id="genderError"></span>
     </div>
 
     <div class="form-group">
-      <label for="email">Email ID:</label>
-      <input type="email" id="email" name="email" required>
+      <label>Email:</label>
+      <input type="email" id="email">
+      <span class="error" id="emailError"></span>
     </div>
 
     <div class="form-group">
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required>
+      <label>Password:</label>
+      <input type="password" id="password">
+      <span class="error" id="passwordError"></span>
     </div>
 
     <div class="form-group">
-      <label for="confirmpassword">Confirm Password:</label>
-      <input type="password" id="confirmpassword" name="confirmpassword" required>
+      <label>Confirm Password:</label>
+      <input type="password" id="confirmpassword">
+      <span class="error" id="confirmError"></span>
     </div>
 
     <div class="form-group">
-      <label for="dob">Date of Birth:</label>
-      <input type="date" id="dob" name="dob" required>
+      <label>DOB:</label>
+      <input type="date" id="dob">
+      <span class="error" id="dobError"></span>
     </div>
 
     <div class="form-group">
-      <label for="country">Country:</label>
-      <select id="country" name="country" required>
-        <option value="">Select Country</option>
-        <!-- Few sample countries; you can expand this list -->
-        <option>Afghanistan</option>
-        <option>Australia</option>
-        <option>Brazil</option>
-        <option>Canada</option>
-        <option>France</option>
-        <option>Germany</option>
+      <label>Country:</label>
+      <select id="country">
+        <option value="">Select</option>
         <option>India</option>
-        <option>Japan</option>
-        <option>United Kingdom</option>
-        <option>United States</option>
-        <!-- Add more countries as needed -->
+        <option>USA</option>
+        <option>Germany</option>
       </select>
+      <span class="error" id="countryError"></span>
     </div>
 
-    <div class="form-group">
-      <label for="bgcolor">Select Background Color:</label>
-      <select id="bgcolor" onchange="changeColor()">
-        <option value="#ffffff">White</option>
-        <option value="#f8d7da">Pink</option>
-        <option value="#d4edda">Green</option>
-        <option value="#d1ecf1">Blue</option>
-        <option value="#fff3cd">Yellow</option>
-      </select>
-      <div id="color-box"></div>
+    <div class="form-group terms">
+      <input type="checkbox" id="terms">
+      <label for="terms">I agree to terms</label>
+      <span class="error" id="termsError"></span>
     </div>
 
-    <div class="form-group inline">
-      <label><input type="checkbox" required> I agree to the terms and conditions</label>
-    </div>
-
-    <button type="submit">Register</button>
+    <button type="submit">Submit</button>
+    <p id="successMessage">Registered Successfully</p>
   </form>
 </div>
 
 <script>
-  function changeColor() {
-    const selectedColor = document.getElementById('bgcolor').value;
-    document.getElementById('color-box').style.backgroundColor = selectedColor;
+  function validateForm() {
+    let valid = true;
+
+    // Name
+    let name = document.getElementById("fullname").value.trim();
+    document.getElementById("nameError").textContent = name ? "" : "Enter name";
+    if (!name) valid = false;
+
+    // Email
+    let email = document.getElementById("email");
+    let emailError = document.getElementById("emailError");
+    emailError.textContent = email.value ? (email.checkValidity() ? "" : "Invalid email") : "Enter email";
+    if (!email.value || !email.checkValidity()) valid = false;
+
+    // Password
+    let pass = document.getElementById("password").value;
+    document.getElementById("passwordError").textContent = pass.length >= 6 ? "" : "Min 6 chars";
+    if (pass.length < 6) valid = false;
+
+    // Confirm Password
+    let confirm = document.getElementById("confirmpassword").value;
+    document.getElementById("confirmError").textContent = confirm === pass ? "" : "Passwords don't match";
+    if (confirm !== pass) valid = false;
+
+    // DOB
+    let dob = document.getElementById("dob").value;
+    document.getElementById("dobError").textContent = dob ? "" : "Enter DOB";
+    if (!dob) valid = false;
+
+    // Country
+    let country = document.getElementById("country").value;
+    document.getElementById("countryError").textContent = country ? "" : "Select country";
+    if (!country) valid = false;
+
+    // Terms
+    let terms = document.getElementById("terms").checked;
+    document.getElementById("termsError").textContent = terms ? "" : "Accept terms";
+    if (!terms) valid = false;
+
+    // Show message
+    document.getElementById("successMessage").style.display = valid ? "block" : "none";
+    return valid;
   }
 </script>
 
