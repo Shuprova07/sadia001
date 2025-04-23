@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Registration Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f3f3f3;
+      padding: 20px;
+    }
+    .form-container {
+      background-color: white;
+      padding: 25px;
+      border-radius: 10px;
+      width: 400px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    input[type="text"], input[type="email"], input[type="password"], input[type="date"], select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .form-group.inline label {
+      display: inline;
+      margin-right: 10px;
+    }
+    .form-group.inline input {
+      margin-right: 10px;
+    }
+    #color-box {
+      height: 40px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-top: 5px;
+    }
+    button {
+      background-color: #007BFF;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+<div class="form-container">
+  <h2>Registration Form</h2>
+  <form>
+    
+    <div class="form-group">
+      <label for="fullname">Full Name:</label>
+      <input type="text" id="fullname" name="fullname" required>
+    </div>
+
+    <div class="form-group">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required>
+    </div>
+
+    <div class="form-group inline">
+      <label>Gender:</label>
+      <label><input type="radio" name="gender" value="Male"> Male</label>
+      <label><input type="radio" name="gender" value="Female"> Female</label>
+      <label><input type="radio" name="gender" value="Other"> Other</label>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email ID:</label>
+      <input type="email" id="email" name="email" required>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+    </div>
+
+    <div class="form-group">
+      <label for="confirmpassword">Confirm Password:</label>
+      <input type="password" id="confirmpassword" name="confirmpassword" required>
+    </div>
+
+    <div class="form-group">
+      <label for="dob">Date of Birth:</label>
+      <input type="date" id="dob" name="dob" required>
+    </div>
+
+    <div class="form-group">
+      <label for="country">Country:</label>
+      <select id="country" name="country" required>
+        <option value="">Select Country</option>
+        <!-- Few sample countries; you can expand this list -->
+        <option>Afghanistan</option>
+        <option>Australia</option>
+        <option>Brazil</option>
+        <option>Canada</option>
+        <option>France</option>
+        <option>Germany</option>
+        <option>India</option>
+        <option>Japan</option>
+        <option>United Kingdom</option>
+        <option>United States</option>
+        <!-- Add more countries as needed -->
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="bgcolor">Select Background Color:</label>
+      <select id="bgcolor" onchange="changeColor()">
+        <option value="#ffffff">White</option>
+        <option value="#f8d7da">Pink</option>
+        <option value="#d4edda">Green</option>
+        <option value="#d1ecf1">Blue</option>
+        <option value="#fff3cd">Yellow</option>
+      </select>
+      <div id="color-box"></div>
+    </div>
+
+    <div class="form-group inline">
+      <label><input type="checkbox" required> I agree to the terms and conditions</label>
+    </div>
+
+    <button type="submit">Register</button>
+  </form>
+</div>
+
+<script>
+  function changeColor() {
+    const selectedColor = document.getElementById('bgcolor').value;
+    document.getElementById('color-box').style.backgroundColor = selectedColor;
+  }
+</script>
+
+</body>
+</html>
